@@ -21,7 +21,11 @@
   <li>
     <a href="{{ c.slug }}/">
       <span class="name">{{ c.name }}</span>
+      {% if c.type == 'enchainment' %}
+      <span class="meta">enchainment · {{ c.climbs|length }} climbs · {{ c.climbs|map(attribute='pitches')|map('length')|sum }} pitches</span>
+      {% else %}
       <span class="meta">{{ c.routes|length }} routes · {{ c.routes|map(attribute='stars')|sum }} stars · {{ c.routes|map(attribute='height_m')|sum }} m</span>
+      {% endif %}
     </a>
   </li>
 {% endfor %}

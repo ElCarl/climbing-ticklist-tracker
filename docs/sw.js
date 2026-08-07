@@ -1,5 +1,5 @@
-const CACHE = "ticklist-v1ec31e5986dd";
-const PRECACHE = ["./", "./app.js", "./icon-192.png", "./icon-512.png", "./index.html", "./manifest.json", "./stanage-vs/", "./stanage-vs/index.html", "./style.css"];
+const CACHE = "ticklist-v9b3bcc369a29";
+const PRECACHE = ["./", "./app.js", "./enchain.js", "./icon-192.png", "./icon-512.png", "./index.html", "./llanberis-enchainment/", "./llanberis-enchainment/index.html", "./manifest.json", "./stanage-vs/", "./stanage-vs/index.html", "./style.css"];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting()));

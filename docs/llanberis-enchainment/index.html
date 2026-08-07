@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12422c">
+<title>Llanberis Pass Enchainment</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<script id="challenge-data" type="application/json">{"slug":"llanberis-enchainment","name":"Llanberis Pass Enchainment","type":"enchainment","targetHours":12.0,"leaders":["Leader 1","Leader 2"],"stages":[{"id":"s01-layby-to-dinas-mot","kind":"walk","name":"Layby to Dinas Mot","branch":null,"estimateMin":11,"distKm":0.4},{"id":"s02-direct-route","kind":"climb","name":"Direct Route","branch":null,"estimateMin":90,"distKm":0.05,"pitches":[{"i":1,"grade":"4b","lengthM":25,"plannedLeader":"Leader 1"},{"i":2,"grade":"5b","lengthM":25,"plannedLeader":"Leader 2"},{"i":3,"grade":"4c","lengthM":22,"plannedLeader":"Leader 1"}]},{"id":"s03-slow-ledge-climb","kind":"climb","name":"Slow Ledge Climb","branch":null,"estimateMin":65,"distKm":0.05,"pitches":[{"i":1,"grade":"4b","lengthM":30,"plannedLeader":"Leader 2"},{"i":2,"grade":"4a","lengthM":25,"plannedLeader":"Leader 1"}]},{"id":"s04-dinas-mot-top-to-cyrn-las","kind":"walk","name":"Dinas Mot top to Cyrn Las","branch":null,"estimateMin":37,"distKm":1.3},{"id":"s05-main-wall","kind":"climb","name":"Main Wall","branch":null,"estimateMin":165,"distKm":0.05,"pitches":[{"i":1,"grade":"4a","lengthM":21,"plannedLeader":"Leader 1"},{"i":2,"grade":"4b","lengthM":24,"plannedLeader":"Leader 2"},{"i":3,"grade":"4a","lengthM":14,"plannedLeader":"Leader 1"},{"i":4,"grade":"4b","lengthM":27,"plannedLeader":"Leader 2"},{"i":5,"grade":"4a","lengthM":24,"plannedLeader":"Leader 1"},{"i":6,"grade":"4a","lengthM":30,"plannedLeader":"Leader 2"}]},{"id":"s06-cyrn-las-top-to-clogwyn-y-person","kind":"walk","name":"Cyrn Las top to Clogwyn y Person","branch":null,"estimateMin":31,"distKm":0.9},{"id":"s07-the-ring","kind":"climb","name":"The Ring","branch":null,"estimateMin":65,"distKm":0.05,"pitches":[{"i":1,"grade":"4c","lengthM":30,"plannedLeader":"Leader 2"},{"i":2,"grade":"4b","lengthM":30,"plannedLeader":"Leader 1"}]},{"id":"s08-person-arete-to-crib-y-ddysgl-summit","kind":"scramble","name":"Person Arete to Crib y Ddysgl summit","branch":null,"estimateMin":29,"distKm":0.5},{"id":"s901-crib-y-ddysgl-to-crib-goch-ridge-traverse","kind":"scramble","name":"Crib y Ddysgl to Crib Goch (ridge traverse)","branch":{"decision":"s09-crib-goch-finale","option":0},"estimateMin":45,"distKm":1.5},{"id":"s902-crib-goch-east-ridge-to-pen-y-pass","kind":"walk","name":"Crib Goch east ridge to Pen y Pass","branch":{"decision":"s09-crib-goch-finale","option":0},"estimateMin":48,"distKm":2.0},{"id":"s911-descend-to-crib-goch-north-face","kind":"walk","name":"Descend to Crib Goch north face","branch":{"decision":"s09-crib-goch-finale","option":1},"estimateMin":20,"distKm":0.8},{"id":"s912-reade-s-route-summer","kind":"climb","name":"Reade's Route (Summer)","branch":{"decision":"s09-crib-goch-finale","option":1},"estimateMin":65,"distKm":0.05,"pitches":[{"i":1,"grade":"4a","lengthM":40,"plannedLeader":"Leader 1"},{"i":2,"grade":"","lengthM":40,"plannedLeader":"Leader 2"}]},{"id":"s913-pinnacles-and-knife-edge-eastward","kind":"scramble","name":"Pinnacles and knife edge eastward","branch":{"decision":"s09-crib-goch-finale","option":1},"estimateMin":20,"distKm":0.9},{"id":"s914-crib-goch-east-ridge-to-pen-y-pass","kind":"walk","name":"Crib Goch east ridge to Pen y Pass","branch":{"decision":"s09-crib-goch-finale","option":1},"estimateMin":48,"distKm":2.0}],"decisions":[{"id":"s09-crib-goch-finale","name":"Crib Goch finale","options":["Ridge only","Reade's Route first"]}]}</script>
+
+<header class="topbar">
+  <a class="back" href="../">‹</a>
+  <div class="topbar-main">
+    <h1>Llanberis Pass Enchainment</h1>
+    <div id="progress" class="progress"></div>
+  </div>
+  <button id="theme-toggle" class="iconbtn" title="Toggle theme">◐</button>
+  <button id="export" class="iconbtn" title="Export log">⇪</button>
+</header>
+
+<div id="pacing" class="pacing" hidden></div>
+
+<main>
+<section class="intro">
+  <p>Dinas Mot to Crib Goch the long way: the classic VS up the Nose, Slow Ledge Climb to the top, Main Wall on Cyrn Las, a route on Clogwyn y Ddysgl, over Crib y Ddysgl and home along the Crib Goch ridge. Finish at Pen y Pass; Sherpa bus back to the Cromlech layby.</p>
+</section>
+
+<svg id="profile" viewBox="0 0 600 140" role="img" aria-label="Elevation profile">
+  <polyline class="profile-path" data-choice='{"s09-crib-goch-finale": 0}' data-ids='["s01-layby-to-dinas-mot", "s02-direct-route", "s03-slow-ledge-climb", "s04-dinas-mot-top-to-cyrn-las", "s05-main-wall", "s06-cyrn-las-top-to-clogwyn-y-person", "s07-the-ring", "s08-person-arete-to-crib-y-ddysgl-summit", "s901-crib-y-ddysgl-to-crib-goch-ridge-traverse", "s902-crib-goch-east-ridge-to-pen-y-pass"]' points="10.0,130.0 42.9,121.5 47.0,110.8 51.1,100.2 158.1,93.1 162.2,73.2 236.2,47.6 240.4,37.7 281.5,10.0 404.9,30.2 569.4,110.3"/>
+  <polyline class="profile-path" data-choice='{"s09-crib-goch-finale": 1}' data-ids='["s01-layby-to-dinas-mot", "s02-direct-route", "s03-slow-ledge-climb", "s04-dinas-mot-top-to-cyrn-las", "s05-main-wall", "s06-cyrn-las-top-to-clogwyn-y-person", "s07-the-ring", "s08-person-arete-to-crib-y-ddysgl-summit", "s911-descend-to-crib-goch-north-face", "s912-reade-s-route-summer", "s913-pinnacles-and-knife-edge-eastward", "s914-crib-goch-east-ridge-to-pen-y-pass"]' points="10.0,130.0 42.9,121.5 47.0,110.8 51.1,100.2 158.1,93.1 162.2,73.2 236.2,47.6 240.4,37.7 281.5,10.0 347.3,50.5 351.4,33.4 425.5,30.2 590.0,110.3"/>
+  <circle id="profile-dot" r="5" cx="10" cy="130"/>
+</svg>
+
+
+
+
+
+<article class="stage stage-walk" data-stage="s01-layby-to-dinas-mot">
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Layby to Dinas Mot</span>
+      <span class="meta">
+0.4 km · +60m        · path
+      </span>
+    </div>
+    <span class="est">~11 min</span>
+  </div>
+<p class="desc">Base of the Nose, central obvious clean triangle.</p>  
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s01-layby-to-dinas-mot">Arrived</button>
+    <span class="status" data-stage="s01-layby-to-dinas-mot"></span>
+    <button class="clear" data-stage="s01-layby-to-dinas-mot" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-climb route" data-stage="s02-direct-route">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Direct Route</span>
+      <span class="meta">VS 5b
+        <span class="stars">★★★</span>
+        · 72m · Dinas Mot (The Nose)
+        · <a class="ukc" href="https://www.ukclimbing.com/logbook/crags/dinas_mot-699/direct_route-3259" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~90 min</span>
+  </div>
+<p class="desc">The Kirkus classic; polished crux slab high up. TODO confirm pitch breakdown.</p>  <div class="escape">Escape: Abseil/scramble off west side of the Nose terrace.</div>
+  <ul class="pitches">
+    <li class="pitch" data-stage="s02-direct-route" data-pitch="1">
+      <span class="pitch-meta">P1 · 4b · 25m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s02-direct-route" data-pitch="1" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s02-direct-route" data-pitch="1" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s02-direct-route" data-pitch="1"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s02-direct-route" data-pitch="2">
+      <span class="pitch-meta">P2 · 5b · 25m</span>
+<span class="pitch-note">crux slab</span>      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s02-direct-route" data-pitch="2" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s02-direct-route" data-pitch="2" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s02-direct-route" data-pitch="2"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s02-direct-route" data-pitch="3">
+      <span class="pitch-meta">P3 · 4c · 22m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s02-direct-route" data-pitch="3" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s02-direct-route" data-pitch="3" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s02-direct-route" data-pitch="3"></span>
+      </span>
+    </li>
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="s02-direct-route">Tick route</button>
+    <span class="status" data-stage="s02-direct-route"></span>
+    <button class="clear" data-stage="s02-direct-route" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-climb route" data-stage="s03-slow-ledge-climb">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Slow Ledge Climb</span>
+      <span class="meta">VS 4b
+        <span class="stars">★★</span>
+        · 55m · Dinas Mot (upper tier)
+        · <a class="ukc" href="https://www.ukclimbing.com/logbook/crags/dinas_mot-699/slow_ledge_climb-3275" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~65 min</span>
+  </div>
+<p class="desc">Continuation to the top of the crag; sideways hand-traverse to the Slow Ledge. TODO confirm pitches.</p>  <div class="escape">Escape: Scramble off left (west) from the Slow Ledge.</div>
+  <ul class="pitches">
+    <li class="pitch" data-stage="s03-slow-ledge-climb" data-pitch="1">
+      <span class="pitch-meta">P1 · 4b · 30m</span>
+<span class="pitch-note">rightward slab to hand-traverse</span>      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s03-slow-ledge-climb" data-pitch="1" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s03-slow-ledge-climb" data-pitch="1" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s03-slow-ledge-climb" data-pitch="1"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s03-slow-ledge-climb" data-pitch="2">
+      <span class="pitch-meta">P2 · 4a · 25m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s03-slow-ledge-climb" data-pitch="2" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s03-slow-ledge-climb" data-pitch="2" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s03-slow-ledge-climb" data-pitch="2"></span>
+      </span>
+    </li>
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="s03-slow-ledge-climb">Tick route</button>
+    <span class="status" data-stage="s03-slow-ledge-climb"></span>
+    <button class="clear" data-stage="s03-slow-ledge-climb" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s04-dinas-mot-top-to-cyrn-las">
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Dinas Mot top to Cyrn Las</span>
+      <span class="meta">
+1.3 km · +150m · −100m        · rough
+      </span>
+    </div>
+    <span class="est">~37 min</span>
+  </div>
+<p class="bearing">🧭 Contour W into Cwm Glas Mawr, then up scree to the wall base.</p>  <div class="escape">Escape: Descend Cwm Glas Mawr to the road.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s04-dinas-mot-top-to-cyrn-las">Arrived</button>
+    <span class="status" data-stage="s04-dinas-mot-top-to-cyrn-las"></span>
+    <button class="clear" data-stage="s04-dinas-mot-top-to-cyrn-las" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-climb route" data-stage="s05-main-wall">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Main Wall</span>
+      <span class="meta">HS 4b
+        <span class="stars">★★★</span>
+        · 140m · Cyrn Las
+        · <a class="ukc" href="https://www.ukclimbing.com/logbook/crags/cyrn_las_gyrn_las-695/main_wall-28749" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~165 min</span>
+  </div>
+<p class="desc">One of the finest HS mountain routes anywhere; serious for the grade, a little loose on P4.</p>  <div class="escape">Escape: None good above P3; commit or abseil the line.</div>
+  <ul class="pitches">
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="1">
+      <span class="pitch-meta">P1 · 4a · 21m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="1" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="1" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="1"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="2">
+      <span class="pitch-meta">P2 · 4b · 24m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="2" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="2" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="2"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="3">
+      <span class="pitch-meta">P3 · 4a · 14m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="3" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="3" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="3"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="4">
+      <span class="pitch-meta">P4 · 4b · 27m</span>
+<span class="pitch-note">big pitch</span>      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="4" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="4" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="4"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="5">
+      <span class="pitch-meta">P5 · 4a · 24m</span>
+<span class="pitch-note">the out-there slab</span>      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="5" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="5" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="5"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s05-main-wall" data-pitch="6">
+      <span class="pitch-meta">P6 · 4a · 30m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s05-main-wall" data-pitch="6" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s05-main-wall" data-pitch="6" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s05-main-wall" data-pitch="6"></span>
+      </span>
+    </li>
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="s05-main-wall">Tick route</button>
+    <span class="status" data-stage="s05-main-wall"></span>
+    <button class="clear" data-stage="s05-main-wall" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s06-cyrn-las-top-to-clogwyn-y-person">
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Cyrn Las top to Clogwyn y Person</span>
+      <span class="meta">
+0.9 km · +180m        · rough
+      </span>
+    </div>
+    <span class="est">~31 min</span>
+  </div>
+<p class="bearing">🧭 SW up upper Cwm Glas to the base of the Parson's Nose.</p>  <div class="escape">Escape: Descend Cwm Glas to the road.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s06-cyrn-las-top-to-clogwyn-y-person">Arrived</button>
+    <span class="status" data-stage="s06-cyrn-las-top-to-clogwyn-y-person"></span>
+    <button class="clear" data-stage="s06-cyrn-las-top-to-clogwyn-y-person" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-climb route" data-stage="s07-the-ring">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">The Ring</span>
+      <span class="meta">VS 4c
+        <span class="stars">★</span>
+        · 60m · Clogwyn y Ddysgl
+        · <a class="ukc" href="https://www.ukclimbing.com/logbook/crags/clogwyn_y_ddysgl-696/the_ring-41417" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~65 min</span>
+  </div>
+<p class="desc">TODO confirm pitches/length. Alternatives at this stop; Nunc Dimittis (VS 5a), Fallen Block Crack (VS 4c), Gambit Climb (S).</p>  <div class="escape">Escape: Scramble off west into Western Gully.</div>
+  <ul class="pitches">
+    <li class="pitch" data-stage="s07-the-ring" data-pitch="1">
+      <span class="pitch-meta">P1 · 4c · 30m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s07-the-ring" data-pitch="1" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s07-the-ring" data-pitch="1" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s07-the-ring" data-pitch="1"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s07-the-ring" data-pitch="2">
+      <span class="pitch-meta">P2 · 4b · 30m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s07-the-ring" data-pitch="2" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s07-the-ring" data-pitch="2" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s07-the-ring" data-pitch="2"></span>
+      </span>
+    </li>
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="s07-the-ring">Tick route</button>
+    <span class="status" data-stage="s07-the-ring"></span>
+    <button class="clear" data-stage="s07-the-ring" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s08-person-arete-to-crib-y-ddysgl-summit">
+  <div class="route-head">
+    <span class="kind-icon">⛰</span>
+    <div class="route-title">
+      <span class="name">Person Arete to Crib y Ddysgl summit</span>
+      <span class="meta">
+Grade 3 · 0.5 km · +195m        · scramble
+      </span>
+    </div>
+    <span class="est">~29 min</span>
+  </div>
+<p class="desc">Sustained and exposed for grade 3; route-finding needs care.</p>  <div class="escape">Escape: Bail W to the Snowdon railway line/Llanberis path.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s08-person-arete-to-crib-y-ddysgl-summit">Arrived</button>
+    <span class="status" data-stage="s08-person-arete-to-crib-y-ddysgl-summit"></span>
+    <button class="clear" data-stage="s08-person-arete-to-crib-y-ddysgl-summit" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage decision" data-stage="s09-crib-goch-finale">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Decision: Crib Goch finale</span>
+    </div>
+  </div>
+<p class="desc">Call it at Crib y Ddysgl summit based on time, weather and remaining psyche.</p>  <div class="decision-options">
+    <button class="decision-opt" data-decision="s09-crib-goch-finale" data-option="0">Ridge only</button>
+    <button class="decision-opt" data-decision="s09-crib-goch-finale" data-option="1">Reade's Route first</button>
+  </div>
+</article>
+<article class="stage stage-walk" data-stage="s901-crib-y-ddysgl-to-crib-goch-ridge-traverse" data-branch="s09-crib-goch-finale:0" hidden>
+  <div class="route-head">
+    <span class="kind-icon">⛰</span>
+    <div class="route-title">
+      <span class="name">Crib y Ddysgl to Crib Goch (ridge traverse)</span>
+      <span class="meta">
+Grade 1 · 1.5 km · +90m · −230m        · scramble
+      </span>
+    </div>
+    <span class="est">~45 min</span>
+  </div>
+<p class="desc">W-to-E reversal of the classic direction; pinnacles then the knife edge.</p>  <div class="escape">Escape: None sensible mid-ridge; commit or turn back at Bwlch Coch.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s901-crib-y-ddysgl-to-crib-goch-ridge-traverse">Arrived</button>
+    <span class="status" data-stage="s901-crib-y-ddysgl-to-crib-goch-ridge-traverse"></span>
+    <button class="clear" data-stage="s901-crib-y-ddysgl-to-crib-goch-ridge-traverse" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s902-crib-goch-east-ridge-to-pen-y-pass" data-branch="s09-crib-goch-finale:0" hidden>
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Crib Goch east ridge to Pen y Pass</span>
+      <span class="meta">
+2.0 km · −570m        · rough
+      </span>
+    </div>
+    <span class="est">~48 min</span>
+  </div>
+  <div class="escape">Escape: This is the descent.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s902-crib-goch-east-ridge-to-pen-y-pass">Arrived</button>
+    <span class="status" data-stage="s902-crib-goch-east-ridge-to-pen-y-pass"></span>
+    <button class="clear" data-stage="s902-crib-goch-east-ridge-to-pen-y-pass" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s911-descend-to-crib-goch-north-face" data-branch="s09-crib-goch-finale:1" hidden>
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Descend to Crib Goch north face</span>
+      <span class="meta">
+0.8 km · −250m        · rough
+      </span>
+    </div>
+    <span class="est">~20 min</span>
+  </div>
+<p class="bearing">🧭 Via Bwlch Coch, cut back E under the north face.</p>  <div class="escape">Escape: Continue down into Cwm Glas and out to the road.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s911-descend-to-crib-goch-north-face">Arrived</button>
+    <span class="status" data-stage="s911-descend-to-crib-goch-north-face"></span>
+    <button class="clear" data-stage="s911-descend-to-crib-goch-north-face" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-climb route" data-stage="s912-reade-s-route-summer" data-branch="s09-crib-goch-finale:1" hidden>
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Reade's Route (Summer)</span>
+      <span class="meta">S 4a
+        <span class="stars">★★</span>
+        · 80m · Crib Goch north face
+        · <a class="ukc" href="https://www.ukclimbing.com/logbook/crags/crib_goch-2032/reades_route_summer-33745" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~65 min</span>
+  </div>
+<p class="desc">TODO confirm pitches; tops out near the pinnacles.</p>  <div class="escape">Escape: Scramble off E along ledge systems.</div>
+  <ul class="pitches">
+    <li class="pitch" data-stage="s912-reade-s-route-summer" data-pitch="1">
+      <span class="pitch-meta">P1 · 4a · 40m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead planned"
+          data-stage="s912-reade-s-route-summer" data-pitch="1" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead"
+          data-stage="s912-reade-s-route-summer" data-pitch="1" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s912-reade-s-route-summer" data-pitch="1"></span>
+      </span>
+    </li>
+    <li class="pitch" data-stage="s912-reade-s-route-summer" data-pitch="2">
+      <span class="pitch-meta">P2 · 40m</span>
+      <span class="pitch-actions">
+        <button class="pitch-lead"
+          data-stage="s912-reade-s-route-summer" data-pitch="2" data-leader="Leader 1"
+          title="Leader 1 led">L1</button>
+        <button class="pitch-lead planned"
+          data-stage="s912-reade-s-route-summer" data-pitch="2" data-leader="Leader 2"
+          title="Leader 2 led">L2</button>
+        <span class="pitch-status" data-stage="s912-reade-s-route-summer" data-pitch="2"></span>
+      </span>
+    </li>
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="s912-reade-s-route-summer">Tick route</button>
+    <span class="status" data-stage="s912-reade-s-route-summer"></span>
+    <button class="clear" data-stage="s912-reade-s-route-summer" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s913-pinnacles-and-knife-edge-eastward" data-branch="s09-crib-goch-finale:1" hidden>
+  <div class="route-head">
+    <span class="kind-icon">⛰</span>
+    <div class="route-title">
+      <span class="name">Pinnacles and knife edge eastward</span>
+      <span class="meta">
+Grade 1 · 0.9 km · +25m        · scramble
+      </span>
+    </div>
+    <span class="est">~20 min</span>
+  </div>
+  <div class="escape">Escape: None sensible; commit.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s913-pinnacles-and-knife-edge-eastward">Arrived</button>
+    <span class="status" data-stage="s913-pinnacles-and-knife-edge-eastward"></span>
+    <button class="clear" data-stage="s913-pinnacles-and-knife-edge-eastward" hidden>Clear</button>
+  </div>
+</article>
+
+<article class="stage stage-walk" data-stage="s914-crib-goch-east-ridge-to-pen-y-pass" data-branch="s09-crib-goch-finale:1" hidden>
+  <div class="route-head">
+    <span class="kind-icon">🥾</span>
+    <div class="route-title">
+      <span class="name">Crib Goch east ridge to Pen y Pass</span>
+      <span class="meta">
+2.0 km · −570m        · rough
+      </span>
+    </div>
+    <span class="est">~48 min</span>
+  </div>
+  <div class="escape">Escape: This is the descent.</div>
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="s914-crib-goch-east-ridge-to-pen-y-pass">Arrived</button>
+    <span class="status" data-stage="s914-crib-goch-east-ridge-to-pen-y-pass"></span>
+    <button class="clear" data-stage="s914-crib-goch-east-ridge-to-pen-y-pass" hidden>Clear</button>
+  </div>
+</article>
+
+
+<div class="page-actions">
+  <button id="clear-all">Clear all ticks</button>
+</div>
+</main>
+
+<div id="topo-overlay" hidden>
+  <button id="topo-close">✕ Close</button>
+  <div class="overlay-scroll"><img id="topo-full" alt="Topo"></div>
+</div>
+
+<dialog id="export-dialog">
+  <h2>Day log</h2>
+  <textarea id="export-text" readonly rows="14"></textarea>
+  <div class="dialog-actions">
+    <button id="export-copy">Copy</button>
+    <button id="export-close">Close</button>
+  </div>
+</dialog>
+
+<script src="../enchain.js"></script>
+</body>
+</html>

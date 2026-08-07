@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12422c">
+<title>{{ c.name }}</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<script id="challenge-data" type="application/json">{{ challenge_json|safe }}</script>
+
+<header class="topbar">
+  <a class="back" href="../">‹</a>
+  <div class="topbar-main">
+    <h1>{{ c.name }}</h1>
+    <div id="progress" class="progress"></div>
+  </div>
+  <button id="theme-toggle" class="iconbtn" title="Toggle theme">◐</button>
+  <button id="export" class="iconbtn" title="Export log">⇪</button>
+</header>
+
+<div id="pacing" class="pacing" hidden></div>
+
+<main>
+<section class="intro">
+  <p>{{ c.notes }}</p>
+</section>
+
+<svg id="profile" viewBox="0 0 600 140" role="img" aria-label="Elevation profile">
+  {% for p in profiles %}
+  <polyline class="profile-path" data-choice='{{ p.choice_json }}' data-ids='{{ p.ids_json }}' points="{{ p.svg_points }}"/>
+  {% endfor %}
+  <circle id="profile-dot" r="5" cx="10" cy="130"/>
+</svg>
+
+{% macro escape_row(s) %}
+  {% if s.escape %}<div class="escape">Escape: {{ s.escape }}</div>{% endif %}
+{% endmacro %}
+
+{% macro walk_card(s, branch) %}
+<article class="stage stage-walk" data-stage="{{ s.id }}"{% if branch %} data-branch="{{ branch }}" hidden{% endif %}>
+  <div class="route-head">
+    <span class="kind-icon">{{ '⛰' if s.kind == 'scramble' else '🥾' }}</span>
+    <div class="route-title">
+      <span class="name">{{ s.name }}</span>
+      <span class="meta">
+        {% if s.grade %}{{ s.grade }} · {% endif %}{{ s.distance_km }} km
+        {%- if s.ascent_m %} · +{{ s.ascent_m }}m{% endif %}
+        {%- if s.descent_m %} · −{{ s.descent_m }}m{% endif %}
+        · {{ s.terrain }}
+      </span>
+    </div>
+    <span class="est">~{{ s.estimate_min }} min</span>
+  </div>
+  {% if s.note %}<p class="desc">{{ s.note }}</p>{% endif %}
+  {% if s.bearing %}<p class="bearing">🧭 {{ s.bearing }}</p>{% endif %}
+  {{ escape_row(s) }}
+  <div class="route-actions">
+    <button class="tick arrive" data-stage="{{ s.id }}">Arrived</button>
+    <span class="status" data-stage="{{ s.id }}"></span>
+    <button class="clear" data-stage="{{ s.id }}" hidden>Clear</button>
+  </div>
+</article>
+{% endmacro %}
+
+{% macro climb_card(s, branch) %}
+<article class="stage stage-climb route" data-stage="{{ s.id }}"{% if branch %} data-branch="{{ branch }}" hidden{% endif %}>
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">{{ s.name }}</span>
+      <span class="meta">{{ s.grade }}
+        <span class="stars">{{ '★' * s.stars }}</span>
+        · {{ s.height_m }}m · {{ s.sector }}
+        · <a class="ukc" href="{{ s.ukc }}" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="est">~{{ s.estimate_min }} min</span>
+  </div>
+  {% if s.description %}<p class="desc">{{ s.description }}</p>{% endif %}
+  {% if s.topo %}
+  <img class="topo" src="{{ topo_map[s.topo] }}" alt="Topo: {{ s.name }}" loading="lazy">
+  {% endif %}
+  {{ escape_row(s) }}
+  <ul class="pitches">
+    {% set planned = planned_leaders(s) %}
+    {% for p in s.pitches %}
+    <li class="pitch" data-stage="{{ s.id }}" data-pitch="{{ p.index }}">
+      <span class="pitch-meta">P{{ p.index }}{% if p.grade %} · {{ p.grade }}{% endif %}{% if p.length_m %} · {{ p.length_m }}m{% endif %}</span>
+      {% if p.note %}<span class="pitch-note">{{ p.note }}</span>{% endif %}
+      <span class="pitch-actions">
+        {% for L in c.leaders %}
+        <button class="pitch-lead{% if planned[p.index - 1] == L %} planned{% endif %}"
+          data-stage="{{ s.id }}" data-pitch="{{ p.index }}" data-leader="{{ L }}"
+          title="{{ L }} led">{{ L.split()|map('first')|join }}</button>
+        {% endfor %}
+        <span class="pitch-status" data-stage="{{ s.id }}" data-pitch="{{ p.index }}"></span>
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="route-actions">
+    <button class="tick tick-route" data-stage="{{ s.id }}">Tick route</button>
+    <span class="status" data-stage="{{ s.id }}"></span>
+    <button class="clear" data-stage="{{ s.id }}" hidden>Clear</button>
+  </div>
+</article>
+{% endmacro %}
+
+{% macro stage_card(s, branch) %}
+  {% if s.kind == 'climb' %}{{ climb_card(s, branch) }}{% else %}{{ walk_card(s, branch) }}{% endif %}
+{% endmacro %}
+
+{% for s in c.stages %}
+  {% if s.kind == 'decision' %}
+<article class="stage decision" data-stage="{{ s.id }}">
+  <div class="route-head">
+    <div class="route-title">
+      <span class="name">Decision: {{ s.name }}</span>
+    </div>
+  </div>
+  {% if s.note %}<p class="desc">{{ s.note }}</p>{% endif %}
+  <div class="decision-options">
+    {% for o in s.options %}
+    <button class="decision-opt" data-decision="{{ s.id }}" data-option="{{ loop.index0 }}">{{ o.name }}</button>
+    {% endfor %}
+  </div>
+</article>
+    {% for o in s.options %}
+      {% set oi = loop.index0 %}
+      {% for inner in o.stages %}
+{{ stage_card(inner, s.id ~ ':' ~ oi) }}
+      {% endfor %}
+    {% endfor %}
+  {% else %}
+{{ stage_card(s, none) }}
+  {% endif %}
+{% endfor %}
+
+<div class="page-actions">
+  <button id="clear-all">Clear all ticks</button>
+</div>
+</main>
+
+<div id="topo-overlay" hidden>
+  <button id="topo-close">✕ Close</button>
+  <div class="overlay-scroll"><img id="topo-full" alt="Topo"></div>
+</div>
+
+<dialog id="export-dialog">
+  <h2>Day log</h2>
+  <textarea id="export-text" readonly rows="14"></textarea>
+  <div class="dialog-actions">
+    <button id="export-copy">Copy</button>
+    <button id="export-close">Close</button>
+  </div>
+</dialog>
+
+<script src="../enchain.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+# Llanberis Pass mountain enchainment (case study).
+# Distances/ascents/elevations are map estimates; refine from a GPX trace.
+# Pitch breakdowns marked TODO need checking against the guidebook.
+# Logistics: start at the Cromlech boulders layby, finish at Pen y Pass;
+# Sherpa bus or second car to get back down the Pass.
+
+name: Llanberis Pass Enchainment
+slug: llanberis-enchainment
+type: enchainment
+target_hours: 12
+start_elev_m: 220
+notes: >
+  Dinas Mot to Crib Goch the long way: the classic VS up the Nose, Slow
+  Ledge Climb to the top, Main Wall on Cyrn Las, a route on Clogwyn y
+  Ddysgl, over Crib y Ddysgl and home along the Crib Goch ridge. Finish
+  at Pen y Pass; Sherpa bus back to the Cromlech layby.
+
+leaders:
+  - Leader 1
+  - Leader 2
+
+stages:
+  - walk:
+      name: Layby to Dinas Mot
+      distance_km: 0.4
+      ascent_m: 60
+      descent_m: 0
+      terrain: path
+      end_elev_m: 280
+      note: Base of the Nose, central obvious clean triangle.
+
+  - climb:
+      name: Direct Route
+      grade: VS 5b
+      stars: 3
+      height_m: 72
+      ukc: https://www.ukclimbing.com/logbook/crags/dinas_mot-699/direct_route-3259
+      sector: Dinas Mot (The Nose)
+      first_lead: Leader 1
+      end_elev_m: 355
+      escape: Abseil/scramble off west side of the Nose terrace.
+      description: The Kirkus classic; polished crux slab high up. TODO confirm pitch breakdown.
+      pitches:
+        - {grade: 4b, length_m: 25}
+        - {grade: 5b, length_m: 25, note: crux slab}
+        - {grade: 4c, length_m: 22}
+
+  - climb:
+      name: Slow Ledge Climb
+      grade: VS 4b
+      stars: 2
+      height_m: 55
+      ukc: https://www.ukclimbing.com/logbook/crags/dinas_mot-699/slow_ledge_climb-3275
+      sector: Dinas Mot (upper tier)
+      first_lead: Leader 2
+      end_elev_m: 430
+      escape: Scramble off left (west) from the Slow Ledge.
+      description: Continuation to the top of the crag; sideways hand-traverse to the Slow Ledge. TODO confirm pitches.
+      pitches:
+        - {grade: 4b, length_m: 30, note: rightward slab to hand-traverse}
+        - {grade: 4a, length_m: 25}
+
+  - walk:
+      name: Dinas Mot top to Cyrn Las
+      distance_km: 1.3
+      ascent_m: 150
+      descent_m: 100
+      terrain: rough
+      end_elev_m: 480
+      bearing: Contour W into Cwm Glas Mawr, then up scree to the wall base.
+      escape: Descend Cwm Glas Mawr to the road.
+
+  - climb:
+      name: Main Wall
+      grade: HS 4b
+      stars: 3
+      height_m: 140
+      ukc: https://www.ukclimbing.com/logbook/crags/cyrn_las_gyrn_las-695/main_wall-28749
+      sector: Cyrn Las
+      first_lead: Leader 1
+      end_elev_m: 620
+      escape: None good above P3; commit or abseil the line.
+      description: One of the finest HS mountain routes anywhere; serious for the grade, a little loose on P4.
+      pitches:
+        - {grade: 4a, length_m: 21}
+        - {grade: 4b, length_m: 24}
+        - {grade: 4a, length_m: 14}
+        - {grade: 4b, length_m: 27, note: big pitch, some loose rock}
+        - {grade: 4a, length_m: 24, note: the out-there slab, exposed left edge}
+        - {grade: 4a, length_m: 30}
+
+  - walk:
+      name: Cyrn Las top to Clogwyn y Person
+      distance_km: 0.9
+      ascent_m: 180
+      descent_m: 0
+      terrain: rough
+      end_elev_m: 800
+      bearing: SW up upper Cwm Glas to the base of the Parson's Nose.
+      escape: Descend Cwm Glas to the road.
+
+  - climb:
+      name: The Ring
+      grade: VS 4c
+      stars: 1
+      height_m: 60
+      ukc: https://www.ukclimbing.com/logbook/crags/clogwyn_y_ddysgl-696/the_ring-41417
+      sector: Clogwyn y Ddysgl
+      first_lead: Leader 2
+      end_elev_m: 870
+      escape: Scramble off west into Western Gully.
+      description: TODO confirm pitches/length. Alternatives at this stop; Nunc Dimittis (VS 5a), Fallen Block Crack (VS 4c), Gambit Climb (S).
+      pitches:
+        - {grade: 4c, length_m: 30}
+        - {grade: 4b, length_m: 30}
+
+  - scramble:
+      name: Person Arete to Crib y Ddysgl summit
+      grade: Grade 3
+      distance_km: 0.5
+      ascent_m: 195
+      descent_m: 0
+      terrain: scramble
+      end_elev_m: 1065
+      note: Sustained and exposed for grade 3; route-finding needs care.
+      escape: Bail W to the Snowdon railway line/Llanberis path.
+
+  - decision:
+      name: Crib Goch finale
+      note: Call it at Crib y Ddysgl summit based on time, weather and remaining psyche.
+      options:
+        - name: Ridge only
+          stages:
+            - scramble:
+                name: Crib y Ddysgl to Crib Goch (ridge traverse)
+                grade: Grade 1
+                distance_km: 1.5
+                ascent_m: 90
+                descent_m: 230
+                terrain: scramble
+                end_elev_m: 923
+                note: W-to-E reversal of the classic direction; pinnacles then the knife edge.
+                escape: None sensible mid-ridge; commit or turn back at Bwlch Coch.
+            - walk:
+                name: Crib Goch east ridge to Pen y Pass
+                distance_km: 2.0
+                ascent_m: 0
+                descent_m: 570
+                terrain: rough
+                end_elev_m: 359
+                escape: This is the descent.
+        - name: Reade's Route first
+          stages:
+            - walk:
+                name: Descend to Crib Goch north face
+                distance_km: 0.8
+                ascent_m: 0
+                descent_m: 250
+                terrain: rough
+                end_elev_m: 780
+                bearing: Via Bwlch Coch, cut back E under the north face.
+                escape: Continue down into Cwm Glas and out to the road.
+            - climb:
+                name: Reade's Route (Summer)
+                grade: S 4a
+                stars: 2
+                height_m: 80
+                ukc: https://www.ukclimbing.com/logbook/crags/crib_goch-2032/reades_route_summer-33745
+                sector: Crib Goch north face
+                first_lead: Leader 1
+                end_elev_m: 900
+                escape: Scramble off E along ledge systems.
+                description: TODO confirm pitches; tops out near the pinnacles.
+                pitches:
+                  - {grade: 4a, length_m: 40}
+                  - {grade: "", length_m: 40}
+            - scramble:
+                name: Pinnacles and knife edge eastward
+                grade: Grade 1
+                distance_km: 0.9
+                ascent_m: 25
+                descent_m: 0
+                terrain: scramble
+                end_elev_m: 923
+                escape: None sensible; commit.
+            - walk:
+                name: Crib Goch east ridge to Pen y Pass
+                distance_km: 2.0
+                ascent_m: 0
+                descent_m: 570
+                terrain: rough
+                end_elev_m: 359
+                escape: This is the descent.

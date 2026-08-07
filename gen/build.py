@@ -27,11 +27,12 @@ def _env() -> Environment:
     )
 
 
-def _process_topos(challenge: Challenge, out_dir: Path) -> dict[str, str]:
+def _process_topos(challenge, out_dir: Path) -> dict[str, str]:
     """Compress topo images to JPEG; return source filename -> emitted relative path."""
     emitted: dict[str, str] = {}
     src_dir = challenge.directory / "topos"
-    for route in challenge.routes:
+    items = challenge.climbs if challenge.type == "enchainment" else challenge.routes
+    for route in items:
         if not route.topo or route.topo in emitted:
             continue
         src = src_dir / route.topo
@@ -71,6 +72,81 @@ def _challenge_json(challenge: Challenge) -> str:
         ],
     }
     return json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+
+
+def _planned_leaders(stage, leaders: list[str]) -> list[str]:
+    """Alternating leads starting from first_lead."""
+    start = leaders.index(stage.first_lead)
+    return [leaders[(start + i) % len(leaders)] for i in range(len(stage.pitches))]
+
+
+def _stage_json(stage, challenge, branch=None) -> dict:
+    d = {
+        "id": stage.id, "kind": stage.kind, "name": stage.name,
+        "branch": branch,
+    }
+    if stage.kind == "climb":
+        planned = _planned_leaders(stage, challenge.leaders)
+        d.update(estimateMin=stage.estimate_min, distKm=stage.distance_km,
+                 pitches=[{"i": p.index, "grade": p.grade, "lengthM": p.length_m,
+                           "plannedLeader": planned[p.index - 1]}
+                          for p in stage.pitches])
+    else:
+        d.update(estimateMin=stage.estimate_min, distKm=stage.distance_km)
+    return d
+
+
+def _enchainment_json(c) -> str:
+    stages, decisions = [], []
+    for s in c.stages:
+        if s.kind == "decision":
+            decisions.append({"id": s.id, "name": s.name,
+                              "options": [o.name for o in s.options]})
+            for i, o in enumerate(s.options):
+                for inner in o.stages:
+                    stages.append(_stage_json(inner, c, {"decision": s.id, "option": i}))
+        else:
+            stages.append(_stage_json(s, c))
+    data = {
+        "slug": c.slug, "name": c.name, "type": "enchainment",
+        "targetHours": c.target_hours, "leaders": c.leaders,
+        "stages": stages, "decisions": decisions,
+    }
+    return json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+
+
+def _profile_polylines(c) -> list[dict]:
+    """One elevation polyline per decision path, ready for the SVG template."""
+    paths = []
+    for choice, stages in c.paths():
+        x, y = 0.0, float(c.start_elev_m)
+        pts = [(x, y)]
+        for s in stages:
+            x += s.distance_km
+            if s.end_elev_m is not None:
+                y = float(s.end_elev_m)
+            elif s.kind == "climb":
+                y += s.height_m
+            else:
+                y += s.ascent_m - s.descent_m
+            pts.append((x, y))
+        paths.append({"choice": choice, "pts": pts,
+                      "stage_ids": [s.id for s in stages]})
+
+    all_pts = [p for path in paths for p in path["pts"]]
+    xmax = max(p[0] for p in all_pts) or 1
+    ymin = min(p[1] for p in all_pts)
+    ymax = max(p[1] for p in all_pts)
+    yspan = (ymax - ymin) or 1
+    W, H, M = 600, 140, 10
+    for path in paths:
+        path["svg_points"] = " ".join(
+            f"{M + px / xmax * (W - 2 * M):.1f},"
+            f"{H - M - (py - ymin) / yspan * (H - 2 * M):.1f}"
+            for px, py in path["pts"])
+        path["choice_json"] = json.dumps(path["choice"]).replace("</", "<\\/")
+        path["ids_json"] = json.dumps(path["stage_ids"]).replace("</", "<\\/")
+    return paths
 
 
 def _icon(px: int, dest: Path) -> None:
@@ -138,15 +214,24 @@ def build_site(challenges_dir: Path, out_dir: Path) -> list[Challenge]:
         page_dir = out_dir / challenge.slug
         page_dir.mkdir(parents=True, exist_ok=True)
         topo_map = _process_topos(challenge, page_dir)
-        html = env.get_template("challenge.html.j2").render(
-            c=challenge,
-            topo_map=topo_map,
-            challenge_json=_challenge_json(challenge),
-        )
+        if challenge.type == "enchainment":
+            html = env.get_template("enchainment.html.j2").render(
+                c=challenge,
+                topo_map=topo_map,
+                challenge_json=_enchainment_json(challenge),
+                profiles=_profile_polylines(challenge),
+                planned_leaders=lambda s: _planned_leaders(s, challenge.leaders),
+            )
+        else:
+            html = env.get_template("challenge.html.j2").render(
+                c=challenge,
+                topo_map=topo_map,
+                challenge_json=_challenge_json(challenge),
+            )
         (page_dir / "index.html").write_text(html)
         challenges.append(challenge)
 
-    for name in ["app.js", "style.css"]:
+    for name in ["app.js", "enchain.js", "style.css"]:
         shutil.copyfile(REPO / "static" / name, out_dir / name)
     _icon(192, out_dir / "icon-192.png")
     _icon(512, out_dir / "icon-512.png")
@@ -178,7 +263,10 @@ def main() -> None:
     args = parser.parse_args()
     built = build_site(args.challenges, args.out)
     for c in built:
-        print(f"built {c.slug}: {len(c.routes)} routes")
+        if c.type == "enchainment":
+            print(f"built {c.slug}: {len(c.stages)} stages, {len(c.climbs)} climbs")
+        else:
+            print(f"built {c.slug}: {len(c.routes)} routes")
 
 
 if __name__ == "__main__":
