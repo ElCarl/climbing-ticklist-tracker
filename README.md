@@ -5,7 +5,7 @@ Each challenge is a YAML file baked into a static PWA page: routes in circuit
 order with UKC links, guidebook topo photos, descent and changeover info
 rendered between routes, timestamped ticks with pacing, all stored on-device.
 
-Site: https://elcarl.github.io/ticklist/
+Site: https://elcarl.github.io/climbing-ticklist-tracker/
 
 ## Use
 
