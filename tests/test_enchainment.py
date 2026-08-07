@@ -83,8 +83,8 @@ def site(tmp_path_factory):
 
 def test_enchainment_page_built(site):
     html = (site / "llanberis-enchainment" / "index.html").read_text()
-    for name in ["Direct Route", "Slow Ledge Climb", "Main Wall", "The Ring",
-                 "Reade's Route"]:
+    for name in ["Direct Route", "Slow Ledge Climb", "Main Wall",
+                 "Fallen Block Crack", "Reade's Route"]:
         assert name in html
     data = json.loads(re.search(
         r'<script id="challenge-data"[^>]*>(.*?)</script>', html, re.S).group(1))

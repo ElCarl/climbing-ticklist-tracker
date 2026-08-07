@@ -100,19 +100,22 @@ stages:
       escape: Descend Cwm Glas to the road.
 
   - climb:
-      name: The Ring
+      name: Fallen Block Crack
       grade: VS 4c
-      stars: 1
-      height_m: 60
-      ukc: https://www.ukclimbing.com/logbook/crags/clogwyn_y_ddysgl-696/the_ring-41417
+      stars: 2
+      height_m: 55
+      ukc: https://www.ukclimbing.com/logbook/crags/clogwyn_y_ddysgl-696/fallen_block_crack-29148
       sector: Clogwyn y Ddysgl
       first_lead: Leader 2
       end_elev_m: 870
       escape: Scramble off west into Western Gully.
-      description: TODO confirm pitches/length. Alternatives at this stop; Nunc Dimittis (VS 5a), Fallen Block Crack (VS 4c), Gambit Climb (S).
+      description: >
+        Best VS on the crag (The Ring vetoed; done before, scary, not great).
+        TODO pitches/length from North Wales Climbs; UKC has no description.
+        Alternatives; Gambit Climb (S, 3 stars), Nunc Dimittis (VS 5a, 1 star).
       pitches:
         - {grade: 4c, length_m: 30}
-        - {grade: 4b, length_m: 30}
+        - {grade: 4b, length_m: 25}
 
   - scramble:
       name: Person Arete to Crib y Ddysgl summit
