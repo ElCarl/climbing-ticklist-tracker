@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12422c">
+<title>{{ c.name }}</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<script id="challenge-data" type="application/json">{{ challenge_json|safe }}</script>
+
+<header class="topbar">
+  <a class="back" href="../">‹</a>
+  <div class="topbar-main">
+    <h1>{{ c.name }}</h1>
+    <div id="progress" class="progress">0/{{ c.routes|length }}</div>
+  </div>
+  <button id="theme-toggle" class="iconbtn" title="Toggle theme">◐</button>
+  <button id="export" class="iconbtn" title="Export log">⇪</button>
+</header>
+
+<div id="pacing" class="pacing" hidden></div>
+
+<main>
+<section class="intro">
+  <p>{{ c.notes }}</p>
+  {% if c.ukc_ticklist %}
+  <p><a href="{{ c.ukc_ticklist }}" target="_blank" rel="noopener">UKC ticklist ↗</a></p>
+  {% endif %}
+</section>
+
+{% set total = c.routes|length %}
+{% for sector in c.sectors %}
+<h2 class="sector">{{ sector.name }}</h2>
+  {% for r in sector.routes %}
+    {% if c.changeover_before(r.number) %}
+<div class="changeover">⇅ Changeover — {{ c.leader_for(r.number) }} leads</div>
+    {% endif %}
+<article class="route" data-route="{{ r.slug }}" id="r-{{ r.slug }}">
+  <div class="route-head">
+    <span class="num">{{ r.number }}</span>
+    <div class="route-title">
+      <span class="name">{{ r.name }}</span>
+      <span class="meta">{{ r.grade }}
+        <span class="stars">{{ '★' * r.stars }}</span>
+        · {{ r.height_m }}m
+        · <a class="ukc" href="{{ r.ukc }}" target="_blank" rel="noopener">UKC ↗</a>
+      </span>
+    </div>
+    <span class="leader-chip">{{ c.leader_for(r.number) }}</span>
+  </div>
+  {% if r.description %}
+  <p class="desc">{{ r.description }}</p>
+  {% else %}
+  <p class="desc todo">Description to follow.</p>
+  {% endif %}
+  {% if r.topo %}
+  <img class="topo" src="{{ topo_map[r.topo] }}" alt="Topo: {{ r.name }}" loading="lazy">
+  {% endif %}
+  <div class="route-actions">
+    <button class="tick" data-slug="{{ r.slug }}">Tick</button>
+    <button class="skip" data-slug="{{ r.slug }}">Skip</button>
+    <span class="status" data-slug="{{ r.slug }}"></span>
+  </div>
+</article>
+    {% if r.number < total %}
+<div class="transition" data-transition-after="{{ r.slug }}">
+  <div class="descent">▼ {% if r.descent %}{{ r.descent }}{% else %}Descent: TBC{% endif %}</div>
+  {% set next = c.routes[r.number] %}
+  <div class="next">→ Next: {{ next.name }} ({{ next.grade }}){% if r.to_next %} — {{ r.to_next }}{% endif %}</div>
+</div>
+    {% else %}
+<div class="transition finish" data-transition-after="{{ r.slug }}">
+  <div class="descent">▼ {% if r.descent %}{{ r.descent }}{% else %}Descent: TBC{% endif %}</div>
+  <div class="next">🏁 That's the lot.</div>
+</div>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+</main>
+
+<div id="topo-overlay" hidden>
+  <button id="topo-close">✕ Close</button>
+  <div class="overlay-scroll"><img id="topo-full" alt="Topo"></div>
+</div>
+
+<dialog id="export-dialog">
+  <h2>Day log</h2>
+  <textarea id="export-text" readonly rows="14"></textarea>
+  <div class="dialog-actions">
+    <button id="export-copy">Copy</button>
+    <button id="export-close">Close</button>
+  </div>
+</dialog>
+
+<script src="../app.js"></script>
+</body>
+</html>

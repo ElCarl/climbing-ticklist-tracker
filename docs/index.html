@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12422c">
+<title>Ticklist</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-main"><h1>Ticklist</h1></div>
+</header>
+<main>
+<ul class="challenge-list">
+  <li>
+    <a href="stanage-vs/">
+      <span class="name">Stanage VS Challenge (1989 Guide)</span>
+      <span class="meta">36 routes · 76 stars · 538 m</span>
+    </a>
+  </li>
+</ul>
+<p class="hint">Add to home screen for offline use. Everything is cached after first load.</p>
+</main>
+<script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+</script>
+</body>
+</html>

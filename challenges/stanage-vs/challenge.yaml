@@ -1,0 +1,222 @@
+# Stanage VS Challenge (1989 Guide)
+# Source: https://www.ukclimbing.com/logbook/ticklists/stanage_vs_challenge_1989_guide-437
+# Grades shown are current UKC grades; the challenge is defined by the 1989 list
+# (Via Roof Route and Wall Buttress are now HVS, Paradise Wall now HS).
+#
+# description: one or two lines read at speed (line, gear character).
+# descent: way down after topping out; rendered in the transition row after the route.
+# to_next: walk note to the next route in circuit order.
+# topo: filename in topos/, shareable between routes.
+
+name: Stanage VS Challenge (1989 Guide)
+slug: stanage-vs
+ukc_ticklist: https://www.ukclimbing.com/logbook/ticklists/stanage_vs_challenge_1989_guide-437
+target_hours: 10
+notes: >
+  All the starred VS routes, 36 in total, from the 1989 definitive Stanage
+  guide. Traditionally all routes led and seconded as a partner team in a
+  day, no soloing. 76 stars, 538 m of climbing.
+
+# Placeholder leader blocks; edit before the day.
+leaders:
+  - Leader 1
+  - Leader 2
+blocks:
+  - from: 1
+    leader: Leader 1
+  - from: 11
+    leader: Leader 2
+  - from: 21
+    leader: Leader 1
+  - from: 29
+    leader: Leader 2
+
+sectors:
+  - name: Stanage Popular
+    routes:
+      - name: Heather Wall
+        grade: VS 4c
+        stars: 2
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/heather_wall-10409
+      - name: Gargoyle Buttress
+        grade: VS 4b
+        stars: 2
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/gargoyle_buttress-10398
+      - name: Narrow Buttress
+        grade: VS 4c
+        stars: 2
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/narrow_buttress-10358
+      - name: Via Media
+        grade: VS 4c
+        stars: 2
+        height_m: 10
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/via_media-10354
+      - name: Central Trinity
+        grade: VS 4c
+        stars: 2
+        height_m: 16
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/central_trinity-10345
+      - name: Hargreaves' Original
+        grade: VS 4c
+        stars: 3
+        height_m: 18
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/hargreaves_original-10340
+      - name: Inverted V
+        grade: VS 4b
+        stars: 3
+        height_m: 22
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/inverted_v-10321
+      - name: Ellis's Eliminate
+        grade: VS 4c
+        stars: 3
+        height_m: 20
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/elliss_eliminate-10320
+      - name: Rubber Band
+        grade: VS 4b
+        stars: 2
+        height_m: 20
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/rubber_band-10310
+      - name: Robin Hood's Cave Innominate
+        grade: VS 5a
+        stars: 2
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/robin_hoods_cave_innominate-10300
+      - name: Twin Chimneys Buttress
+        grade: VS 4c
+        stars: 2
+        height_m: 18
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/twin_chimneys_buttress-10278
+      - name: Via Roof Route
+        grade: HVS 5b
+        stars: 1
+        height_m: 18
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/via_roof_route-30273
+      - name: Mississippi Buttress Direct
+        grade: VS 4c
+        stars: 3
+        height_m: 22
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/mississippi_buttress_direct-10252
+      - name: The Louisiana Rib
+        grade: VS 4c
+        stars: 2
+        height_m: 18
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/the_louisiana_rib-10247
+      - name: Hell Crack
+        grade: VS 4c
+        stars: 3
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/hell_crack-10243
+      - name: Step-ladder Crack
+        grade: VS 5a
+        stars: 2
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/step-ladder_crack-10241
+      - name: The Nose
+        grade: VS 4c
+        stars: 1
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/the_nose-10218
+      - name: The Punk
+        grade: VS 4c
+        stars: 1
+        height_m: 10
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/the_punk-10194
+      - name: Cleft Wing Superdirect
+        grade: VS 4c
+        stars: 1
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/cleft_wing_superdirect-10192
+      - name: Cleft Wing
+        grade: VS 5b
+        stars: 2
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_popular-104/cleft_wing-10191
+
+  - name: Stanage Plantation
+    routes:
+      - name: Wall Buttress
+        grade: HVS 5a
+        stars: 2
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/wall_buttress-10160
+      - name: Paradise Wall
+        grade: HS 4b
+        stars: 3
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/paradise_wall-10138
+      - name: Pegasus Wall
+        grade: VS 4c
+        stars: 1
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/pegasus_wall-10131
+      - name: Valhalla
+        grade: VS 4c
+        stars: 1
+        height_m: 10
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/valhalla-10130
+      - name: Seesaw
+        grade: VS 4c
+        stars: 1
+        height_m: 14
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/seesaw-10121
+      - name: Fairy Steps
+        grade: VS 4a
+        stars: 2
+        height_m: 16
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/fairy_steps-10071
+      - name: Wall End Slab
+        grade: VS 5a
+        stars: 3
+        height_m: 22
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/wall_end_slab-10052
+      - name: Fern Crack
+        grade: VS 5a
+        stars: 3
+        height_m: 16
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/fern_crack-10048
+      - name: Count's Crack
+        grade: VS 4c
+        stars: 2
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_plantation-101/counts_crack-10022
+
+  - name: Stanage North
+    routes:
+      - name: Central Buttress
+        grade: VS 5a
+        stars: 2
+        height_m: 16
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/central_buttress-51819
+      - name: Titanic
+        grade: VS 4c
+        stars: 3
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/titanic-55125
+      - name: High Neb Buttress
+        grade: VS 4c
+        stars: 3
+        height_m: 20
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/high_neb_buttress-9995
+      - name: Inaccessible Crack
+        grade: VS 4c
+        stars: 3
+        height_m: 16
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/inaccessible_crack-9981
+      - name: Cosmic Crack
+        grade: VS 4c
+        stars: 2
+        height_m: 10
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/cosmic_crack-9948
+      - name: First Sister
+        grade: VS 5a
+        stars: 2
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/first_sister-9921
+      - name: Crab Crawl Arete
+        grade: VS 4c
+        stars: 2
+        height_m: 12
+        ukc: https://www.ukclimbing.com/logbook/crags/stanage_north-99/crab_crawl_arete-9872
