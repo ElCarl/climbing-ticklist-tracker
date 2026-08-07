@@ -66,6 +66,7 @@
     <button class="tick" data-slug="{{ r.slug }}">Tick</button>
     <button class="skip" data-slug="{{ r.slug }}">Skip</button>
     <span class="status" data-slug="{{ r.slug }}"></span>
+    <button class="clear" data-slug="{{ r.slug }}" hidden>Clear</button>
   </div>
 </article>
     {% if r.number < total %}
@@ -82,6 +83,10 @@
     {% endif %}
   {% endfor %}
 {% endfor %}
+
+<div class="page-actions">
+  <button id="clear-all">Clear all ticks</button>
+</div>
 </main>
 
 <div id="topo-overlay" hidden>

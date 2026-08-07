@@ -129,7 +129,12 @@ h2.sector {
   background: transparent; color: var(--muted);
   border: 1px solid var(--line); border-radius: 10px; font-size: 15px;
 }
-.status { font-size: 16px; font-weight: 650; padding: 8px 4px; }
+.status { flex: 1; font-size: 16px; font-weight: 650; padding: 8px 4px; }
+.clear {
+  min-height: 44px; padding: 0 14px;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 10px; font-size: 14px;
+}
 .route.done .status { color: var(--accent); }
 :root[data-theme="dark"] .route.done .status { color: #6fbf92; }
 
@@ -184,6 +189,14 @@ dialog::backdrop { background: rgba(0,0,0,.5); }
   min-height: 44px; padding: 0 18px; border-radius: 8px; border: none;
   background: var(--accent); color: var(--accent-text); font-size: 15px;
 }
+
+.page-actions { text-align: center; margin-top: 120px; padding-bottom: 24px; }
+#clear-all {
+  min-height: 44px; padding: 0 18px;
+  background: transparent; color: #a33;
+  border: 1px solid #a33; border-radius: 10px; font-size: 14px;
+}
+:root[data-theme="dark"] #clear-all { color: #d77; border-color: #844; }
 
 .challenge-list { list-style: none; padding: 0; margin: 0; }
 .challenge-list li a {

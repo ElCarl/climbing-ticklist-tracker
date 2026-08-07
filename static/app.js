@@ -7,7 +7,9 @@
   const THEME_KEY = 'ticklist:theme';
   const bySlug = Object.fromEntries(DATA.routes.map(r => [r.slug, r]));
 
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js');
+  if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
+    navigator.serviceWorker.register('../sw.js');
+  }
 
   const load = () => {
     try { return JSON.parse(localStorage.getItem(KEY)) || { ticks: {} }; }
@@ -29,18 +31,22 @@
       const status = card.querySelector('.status');
       const tick = card.querySelector('.tick');
       const skip = card.querySelector('.skip');
+      const clear = card.querySelector('.clear');
       const t = state.ticks[r.slug];
       card.classList.toggle('done', t?.state === 'led');
       card.classList.toggle('skipped', t?.state === 'skipped');
       if (t?.state === 'led') {
         status.textContent = `✓ ${fmtTime(t.t)}`;
         tick.hidden = skip.hidden = true;
+        clear.hidden = false;
       } else if (t?.state === 'skipped') {
         status.textContent = '– skipped';
         tick.hidden = skip.hidden = true;
+        clear.hidden = false;
       } else {
         status.textContent = '';
         tick.hidden = skip.hidden = false;
+        clear.hidden = true;
       }
     }
     renderPacing();
@@ -98,14 +104,23 @@
     save(); render();
   }));
 
-  document.querySelectorAll('.status').forEach(el => el.addEventListener('click', () => {
-    const slug = el.dataset.slug;
+  document.querySelectorAll('.clear').forEach(btn => btn.addEventListener('click', () => {
+    const slug = btn.dataset.slug;
     if (!state.ticks[slug]) return;
     if (confirm(`Clear ${bySlug[slug].name}?`)) {
       delete state.ticks[slug];
       save(); render();
     }
   }));
+
+  document.getElementById('clear-all').addEventListener('click', () => {
+    const n = Object.keys(state.ticks).length;
+    if (!n) return;
+    if (confirm(`Clear all ${n} ticked/skipped routes? This wipes the day's log.`)) {
+      state = { ticks: {} };
+      save(); render();
+    }
+  });
 
   // Export
   const dialog = document.getElementById('export-dialog');

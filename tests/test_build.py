@@ -44,6 +44,16 @@ def test_challenge_page_contents(site):
     assert data["targetHours"] == 10
 
 
+def test_every_route_has_explicit_clear_button(site):
+    html = (site / "stanage-vs" / "index.html").read_text()
+    assert html.count('class="clear"') == 36
+
+
+def test_page_has_clear_all_button(site):
+    html = (site / "stanage-vs" / "index.html").read_text()
+    assert html.count('id="clear-all"') == 1
+
+
 def test_transition_rows_follow_route_cards(site):
     html = (site / "stanage-vs" / "index.html").read_text()
     # descent text for route N sits between card N and card N+1

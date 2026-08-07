@@ -27,7 +27,7 @@
 <p class="hint">Add to home screen for offline use. Everything is cached after first load.</p>
 </main>
 <script>
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+if ('serviceWorker' in navigator && location.hostname !== 'localhost') navigator.serviceWorker.register('./sw.js');
 </script>
 </body>
 </html>
