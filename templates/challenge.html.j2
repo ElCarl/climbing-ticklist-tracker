@@ -48,6 +48,10 @@
       <span class="name">{{ r.name }}</span>
       <span class="meta">{{ r.grade }}
         <span class="stars">{{ '★' * r.stars }}</span>
+        {% if r.voted_delta is not none %}
+        <span class="voted {{ 'stiff' if r.voted_delta > 0.1 else ('soft' if r.voted_delta < -0.1 else 'even') }}"
+          title="UKC grade votes ({{ r.vote_count }}): mean vs mid-VS">{{ '%+.2f'|format(r.voted_delta) }}</span>
+        {% endif %}
         · {{ r.height_m }}m
         · <a class="ukc" href="{{ r.ukc }}" target="_blank" rel="noopener">UKC ↗</a>
       </span>

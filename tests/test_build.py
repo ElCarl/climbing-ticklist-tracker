@@ -44,6 +44,13 @@ def test_challenge_page_contents(site):
     assert data["targetHours"] == 10
 
 
+def test_voted_difficulty_chips_rendered(site):
+    html = (site / "stanage-vs" / "index.html").read_text()
+    assert html.count('class="voted') == 36
+    assert "+0.33" in html  # Fern Crack
+    assert "−0.59" in html or "-0.59" in html  # Paradise Wall
+
+
 def test_every_route_has_explicit_clear_button(site):
     html = (site / "stanage-vs" / "index.html").read_text()
     assert html.count('class="clear"') == 36

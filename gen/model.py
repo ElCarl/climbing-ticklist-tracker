@@ -30,6 +30,8 @@ class Route:
     descent: str = ""
     to_next: str = ""
     topo: str | None = None
+    voted_delta: float | None = None
+    vote_count: int | None = None
     slug: str = field(init=False)
 
     def __post_init__(self):
@@ -109,6 +111,16 @@ def load_challenge(path: Path) -> Challenge:
                 )
             )
         sectors.append(Sector(name=sdata["name"], routes=routes))
+
+    votes_path = path.parent / "votes.yaml"
+    if votes_path.exists():
+        votes = yaml.safe_load(votes_path.read_text()) or {}
+        by_name = {r.name: r for s in sectors for r in s.routes}
+        for name, v in votes.items():
+            if name not in by_name:
+                raise ChallengeError(f"votes.yaml: unknown route {name}")
+            by_name[name].voted_delta = float(v["delta"])
+            by_name[name].vote_count = int(v["votes"])
 
     leaders = data.get("leaders") or []
     blocks = [Block(start=int(b["from"]), leader=b["leader"]) for b in data.get("blocks", [])]

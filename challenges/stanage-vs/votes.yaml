@@ -1,0 +1,41 @@
+# UKC grade-vote consensus, scraped 2026-08-09 (anonymous, public data).
+# delta = vote-weighted mean grade relative to mid-VS, in adjectival grades
+# (1.0 = one full grade, High/Mid/Low sub-bands = 1/3). votes = ballots cast.
+# Regenerate by re-scraping the route pages' #poll1 data-n attributes.
+
+Heather Wall: {delta: -0.10, votes: 487}
+Gargoyle Buttress: {delta: -0.15, votes: 335}
+Narrow Buttress: {delta: 0.04, votes: 265}
+Via Media: {delta: -0.04, votes: 372}
+Central Trinity: {delta: -0.04, votes: 400}
+Hargreaves' Original: {delta: 0.02, votes: 582}
+Inverted V: {delta: -0.10, votes: 529}
+Ellis's Eliminate: {delta: 0.14, votes: 230}
+Rubber Band: {delta: -0.07, votes: 76}
+Robin Hood's Cave Innominate: {delta: 0.25, votes: 136}
+Twin Chimneys Buttress: {delta: 0.14, votes: 138}
+Via Roof Route: {delta: 0.95, votes: 25}
+Mississippi Buttress Direct: {delta: 0.03, votes: 503}
+The Louisiana Rib: {delta: 0.02, votes: 173}
+Hell Crack: {delta: 0.03, votes: 251}
+Step-ladder Crack: {delta: 0.30, votes: 170}
+The Nose: {delta: 0.13, votes: 101}
+The Punk: {delta: 0.25, votes: 29}
+Cleft Wing Superdirect: {delta: 0.27, votes: 37}
+Cleft Wing: {delta: 0.25, votes: 58}
+Wall Buttress: {delta: 0.70, votes: 197}
+Paradise Wall: {delta: -0.59, votes: 536}
+Pegasus Wall: {delta: -0.28, votes: 211}
+Valhalla: {delta: 0.03, votes: 110}
+Seesaw: {delta: 0.15, votes: 40}
+Fairy Steps: {delta: -0.18, votes: 136}
+Wall End Slab: {delta: 0.00, votes: 232}
+Fern Crack: {delta: 0.33, votes: 246}
+Count's Crack: {delta: 0.16, votes: 96}
+Central Buttress: {delta: 0.34, votes: 53}
+Titanic: {delta: 0.05, votes: 106}
+High Neb Buttress: {delta: 0.06, votes: 462}
+Inaccessible Crack: {delta: -0.02, votes: 293}
+Cosmic Crack: {delta: -0.25, votes: 206}
+First Sister: {delta: 0.31, votes: 140}
+Crab Crawl Arete: {delta: -0.04, votes: 109}

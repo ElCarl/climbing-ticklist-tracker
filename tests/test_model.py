@@ -60,6 +60,20 @@ def test_totals(stanage):
     assert sum(r.stars for r in stanage.routes) == 76
 
 
+def test_vote_data_merged(stanage):
+    assert all(r.voted_delta is not None for r in stanage.routes)
+    heather = stanage.routes[0]
+    assert heather.voted_delta == -0.10
+    assert heather.vote_count == 487
+
+
+def test_votes_for_unknown_route_rejected(tmp_path):
+    p = _minimal(tmp_path)
+    (tmp_path / "votes.yaml").write_text("No Such Route: {delta: 0.1, votes: 5}\n")
+    with pytest.raises(ChallengeError, match="unknown route"):
+        load_challenge(p)
+
+
 def test_slugify():
     assert slugify("Hargreaves' Original") == "hargreaves-original"
     assert slugify("Step-ladder Crack") == "step-ladder-crack"
