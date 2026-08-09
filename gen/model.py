@@ -122,15 +122,17 @@ def load_challenge(path: Path) -> Challenge:
             by_name[name].voted_delta = float(v["delta"])
             by_name[name].vote_count = int(v["votes"])
 
-    # descriptions.yaml fills empty description fields; challenge.yaml wins
-    desc_path = path.parent / "descriptions.yaml"
-    if desc_path.exists():
-        descs = yaml.safe_load(desc_path.read_text()) or {}
-        for name, text in descs.items():
+    # descriptions.yaml / descents.yaml fill empty fields; challenge.yaml wins
+    for fname, attr in [("descriptions.yaml", "description"), ("descents.yaml", "descent")]:
+        sidecar = path.parent / fname
+        if not sidecar.exists():
+            continue
+        entries = yaml.safe_load(sidecar.read_text()) or {}
+        for name, text in entries.items():
             if name not in by_name:
-                raise ChallengeError(f"descriptions.yaml: unknown route {name}")
-            if not by_name[name].description:
-                by_name[name].description = str(text).strip()
+                raise ChallengeError(f"{fname}: unknown route {name}")
+            if not getattr(by_name[name], attr):
+                setattr(by_name[name], attr, str(text).strip())
 
     leaders = data.get("leaders") or []
     blocks = [Block(start=int(b["from"]), leader=b["leader"]) for b in data.get("blocks", [])]

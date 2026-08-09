@@ -72,6 +72,12 @@ def test_descriptions_merged(stanage):
     assert "corner" in stanage.routes[0].description  # Heather Wall
 
 
+def test_descents_merged(stanage):
+    assert all(r.descent for r in stanage.routes)
+    assert "chockstone" in stanage.routes[0].descent.lower()  # Heather Wall
+    assert "Porthole" in stanage.routes[6].descent  # Inverted V
+
+
 def test_descriptions_for_unknown_route_rejected(tmp_path):
     p = _minimal(tmp_path)
     (tmp_path / "descriptions.yaml").write_text("No Such Route: some text\n")

@@ -1,4 +1,4 @@
-const CACHE = "ticklist-vffcfedb491db";
+const CACHE = "ticklist-v7e07d86838a9";
 const PRECACHE = ["./", "./app.js", "./icon-192.png", "./icon-512.png", "./index.html", "./manifest.json", "./stanage-vs/", "./stanage-vs/index.html", "./style.css"];
 
 self.addEventListener('install', e => {
