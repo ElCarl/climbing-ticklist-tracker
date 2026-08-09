@@ -112,15 +112,25 @@ def load_challenge(path: Path) -> Challenge:
             )
         sectors.append(Sector(name=sdata["name"], routes=routes))
 
+    by_name = {r.name: r for s in sectors for r in s.routes}
     votes_path = path.parent / "votes.yaml"
     if votes_path.exists():
         votes = yaml.safe_load(votes_path.read_text()) or {}
-        by_name = {r.name: r for s in sectors for r in s.routes}
         for name, v in votes.items():
             if name not in by_name:
                 raise ChallengeError(f"votes.yaml: unknown route {name}")
             by_name[name].voted_delta = float(v["delta"])
             by_name[name].vote_count = int(v["votes"])
+
+    # descriptions.yaml fills empty description fields; challenge.yaml wins
+    desc_path = path.parent / "descriptions.yaml"
+    if desc_path.exists():
+        descs = yaml.safe_load(desc_path.read_text()) or {}
+        for name, text in descs.items():
+            if name not in by_name:
+                raise ChallengeError(f"descriptions.yaml: unknown route {name}")
+            if not by_name[name].description:
+                by_name[name].description = str(text).strip()
 
     leaders = data.get("leaders") or []
     blocks = [Block(start=int(b["from"]), leader=b["leader"]) for b in data.get("blocks", [])]

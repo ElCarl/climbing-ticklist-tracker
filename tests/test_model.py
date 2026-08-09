@@ -67,6 +67,18 @@ def test_vote_data_merged(stanage):
     assert heather.vote_count == 487
 
 
+def test_descriptions_merged(stanage):
+    assert all(r.description for r in stanage.routes)
+    assert "corner" in stanage.routes[0].description  # Heather Wall
+
+
+def test_descriptions_for_unknown_route_rejected(tmp_path):
+    p = _minimal(tmp_path)
+    (tmp_path / "descriptions.yaml").write_text("No Such Route: some text\n")
+    with pytest.raises(ChallengeError, match="unknown route"):
+        load_challenge(p)
+
+
 def test_votes_for_unknown_route_rejected(tmp_path):
     p = _minimal(tmp_path)
     (tmp_path / "votes.yaml").write_text("No Such Route: {delta: 0.1, votes: 5}\n")
