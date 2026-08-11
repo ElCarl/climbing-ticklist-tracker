@@ -65,6 +65,29 @@ Filter this list, then the survivors get baked into transition rows.
 - Robin Hood's Cave Gully (Diff, "awkward, gritty and polished")
 - Wing Buttress Gully (Diff, by Cleft Wing)
 
+## Online corroboration (researched Aug 2026)
+
+Descents get almost no discussion online; the challenge write-ups (UKC
+article, Roberts, Ripley, Adam 2024) barely mention them. What exists:
+
+- Grotto Slab confirmed "a popular descent route" (UKC forum)
+- "The Popular End has some descents that are practically Mod routes in
+  their own right" (UKC beginners thread) — matches the awkward flags
+- Green Needle Gully "often used in descent" (UKC forum)
+- Robin Hood's Cave gully descent is "a tight squeeze" (UKC bivy thread)
+- Adam 2024: "reccy the routes and the downclimbs back to the routes,
+  you'll save time" — attempters treat short downclimbs as standard;
+  our walk-offs-only rule trades time for margin
+- The BMC definitive guide is scanned on the Internet Archive if a
+  second authoritative descent source is ever wanted
+
+Direction split among attempters: Walton/Guilka (UKC article) and Adam
+2024 went N-to-S (argument: climb familiar Popular End routes when
+tired instead of on-sighting First Sister after 34 routes); Ripley's
+sub-11h completion finished at Crab Crawl, i.e. S-to-N as our page has
+it. Walton's team block-led in twos ("lead 2, second 2") and left a car
+at each end.
+
 ## Coverage note
 
 Area-map pages 178 (Plantation) and 218 (Popular) were not photographed, but
